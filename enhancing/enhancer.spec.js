@@ -3,9 +3,10 @@ const enhancer = require("./enhancer.js");
 describe("enhancer.js", () => {
   describe("repair()", () => {
     it("restores durability to 100", () => {
-      const item = { name: "item one", durability: 130, enhancement: 3 };
+      const item = { name: "item one", durability: 130, enhancement: 20 };
       expect(enhancer.repair(item).durability).toBe(100);
       expect(enhancer.repair(item).durability).toBe(100);
+      expect(enhancer.repair(item).enhancement).toBe(20)
     });
   });
   describe("succeed()", () => {
@@ -32,10 +33,21 @@ describe("enhancer.js", () => {
       it('if enhancement is greater than 15, durability is decreased by 10', () => {
           const item = { enhancement: 15, durability: 80}
           expect(enhancer.fail(item).durability).toBe(70)
+        //   expect(enhancer.fail(item).durability).toBe(80) // test fails because expected output is 80 - 10 - 10 = 60
       })
       it('if enhancement is 16 or greater, enhancement decreased by 1', () => {
           const item = { enhancement: 19}
           expect(enhancer.fail(item).enhancement).toBe(18)
+      })
+  })
+  describe('get()', () => {
+      it('if enhancement is 0, the name is unchanged', () => {
+          const item = { name: 'name example', enhancement: 0 }
+          expect(enhancer.get(item).name).toBe('name example')
+      })
+      it('if enhancement is greater than 0, return enhancement and name', () => {
+          const item = { name: 'name', enhancement: 7} 
+          expect(enhancer.get(item).name).toBe('[+7] name')
       })
   })
 });
