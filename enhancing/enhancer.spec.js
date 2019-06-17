@@ -10,8 +10,12 @@ describe("enhancer.js", () => {
   });
   describe("succeed()", () => {
     it("enhancement increases by one if it is less than 20", () => {
-        const item = { enhancement: 0 }
+      const item = { enhancement: 0 };
       expect(enhancer.succeed(item).enhancement).toBe(1);
+    });
+    it("enhancement does not increase if it is equal to 20", () => {
+      const item = { enhancement: 20 };
+      expect(enhancer.succeed(item).enhancement).toBe(20);
     });
   });
 });
